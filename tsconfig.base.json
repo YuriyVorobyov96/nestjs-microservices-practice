@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@policy/contracts": ["libs/contracts/src/index.ts"],
       "@policy/shared/interfaces": ["libs/shared/interfaces/src/index.ts"]
     }
   },
