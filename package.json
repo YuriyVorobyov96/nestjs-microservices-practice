@@ -3,7 +3,12 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start:account:dev": "env-cmd -f env/.account.env nx serve account"
+    "start": "nx run-many --target=serve -parallel=10",
+    "start:account": "nx serve account",
+    "start:api": "nx serve api",
+    "start:dev": "env-cmd -f env/.api.dev.env env-cmd -f env/.account.dev.env nx run-many --target=serve --all -parallel=10",
+    "start:account:dev": "env-cmd -f env/.account.dev.env nx serve account",
+    "start:api:dev": "env-cmd -f env/.api.dev.env nx serve api"
   },
   "private": true,
   "dependencies": {
@@ -12,6 +17,7 @@
     "@nestjs/core": "^10.0.2",
     "@nestjs/jwt": "^10.1.1",
     "@nestjs/mongoose": "^10.0.1",
+    "@nestjs/passport": "^10.0.3",
     "@nestjs/platform-express": "^10.0.2",
     "axios": "^1.0.0",
     "bcrypt": "^5.1.1",
@@ -20,6 +26,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.6.3",
     "nestjs-rmq": "^2.12.0",
+    "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
     "tslib": "^2.3.0"
@@ -40,6 +47,7 @@
     "@types/bcrypt": "^5.0.1",
     "@types/jest": "^29.4.0",
     "@types/node": "~18.7.1",
+    "@types/passport-jwt": "^4.0.1",
     "@typescript-eslint/eslint-plugin": "^5.60.1",
     "@typescript-eslint/parser": "^5.60.1",
     "eslint": "~8.46.0",
