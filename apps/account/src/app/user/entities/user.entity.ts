@@ -1,5 +1,5 @@
 import { compare, genSalt, hash } from 'bcrypt';
-import { IUser, EUserRole } from '@policy/shared/interfaces';
+import { IUser, EUserRole, IUserPolicies } from '@policy/shared/interfaces';
 
 export class UserEntity implements IUser {
   _id?: string;
@@ -7,6 +7,7 @@ export class UserEntity implements IUser {
   email: string;
   passwordHash: string;
   role: EUserRole;
+  policies?: IUserPolicies[];
 
   constructor(user: IUser) {
     this._id = user._id;
@@ -14,6 +15,7 @@ export class UserEntity implements IUser {
     this.email = user.email;
     this.passwordHash = user.passwordHash;
     this.role = user.role;
+    this.policies = user.policies;
   }
 
   public async setPassword(password: string): Promise<UserEntity> {
@@ -25,5 +27,11 @@ export class UserEntity implements IUser {
 
   public validatePassword(password: string): Promise<boolean> {
     return compare(password, this.passwordHash);
+  }
+
+  public updateProfile(name: string): UserEntity {
+    this.name = name;
+
+    return this;
   }
 }

@@ -1,6 +1,7 @@
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { IUser, EUserRole } from '@policy/shared/interfaces';
+import { UserPolicies, UserPoliciesSchema } from './user-policies.model';
 
 @Schema()
 export class User extends Document implements IUser {
@@ -15,6 +16,9 @@ export class User extends Document implements IUser {
 
   @Prop({ required: true, enum: EUserRole, type: String, default: EUserRole.Client })
   role: EUserRole;
+
+  @Prop({ type: [UserPoliciesSchema] })
+  policies: Types.Array<UserPolicies>;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
