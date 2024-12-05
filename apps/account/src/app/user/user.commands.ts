@@ -12,7 +12,7 @@ export class UserCommands {
 
   @RMQRoute(AccountUpdateProfile.topic)
   @RMQValidate()
-  async getUserInfo(@Body() { id, user }: AccountUpdateProfile.Request): Promise<AccountUpdateProfile.Response> {
+  async updateUser(@Body() { id, user }: AccountUpdateProfile.Request): Promise<AccountUpdateProfile.Response> {
     const existingUser = await this.userRepository.findUserById(id);
 
     if (!existingUser) {
