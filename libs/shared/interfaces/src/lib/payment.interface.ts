@@ -10,3 +10,8 @@ export interface IUserPayInfo {
   paymentLink: string;
   user: IUser;
 }
+
+export interface IUserPayStatus {
+  status: EPaymentStatus;
+  user: IUser;
+}

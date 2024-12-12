@@ -1,4 +1,4 @@
-import { IUserPayInfo } from '@policy/shared/interfaces';
+import { IUserPayInfo, IUserPayStatus } from '@policy/shared/interfaces';
 import { UserEntity } from '../entities/user.entity';
 import { BuyPolicySaga } from './buy-policy.saga';
 
@@ -10,6 +10,6 @@ export abstract class ABuyPolicySagaState {
   }
 
   public abstract pay(): Promise<IUserPayInfo>;
-  public abstract checkPayment(): Promise<{ user: UserEntity }>;
+  public abstract checkPayment(): Promise<IUserPayStatus>;
   public abstract cancel(): { user: UserEntity };
 }

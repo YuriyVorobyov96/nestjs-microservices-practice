@@ -1,5 +1,5 @@
 import { PaymentCheck } from '@policy/contracts';
-import { EPaymentStatus, EPurchaseState } from '@policy/shared/interfaces';
+import { EPaymentStatus, EPurchaseState, IUserPayStatus } from '@policy/shared/interfaces';
 import { UserEntity } from '../../entities/user.entity';
 import { ABuyPolicySagaState } from '../buy-policy.saga.state';
 
@@ -8,7 +8,7 @@ export class BuyPolicySagaStateWaitingForPayment extends ABuyPolicySagaState {
     throw new Error('Payment already exists');
   }
 
-  public async checkPayment(): Promise<{ user: UserEntity }> {
+  public async checkPayment(): Promise<IUserPayStatus> {
     const { status } = await this.saga.rmqService.send<PaymentCheck.Request, PaymentCheck.Response>(PaymentCheck.topic, {
       policyId: this.saga.policyId,
       userId: this.saga.user._id,
@@ -26,7 +26,7 @@ export class BuyPolicySagaStateWaitingForPayment extends ABuyPolicySagaState {
       this.saga.setState(EPurchaseState.Canceled, this.saga.policyId);
     }
 
-    return { user: this.saga.user };
+    return { user: this.saga.user, status };
   }
 
   public cancel(): { user: UserEntity } {
