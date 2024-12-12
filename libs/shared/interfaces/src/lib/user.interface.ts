@@ -16,11 +16,11 @@ export interface IUser {
   email: string;
   passwordHash: string;
   role: EUserRole;
-  policies?: IUserPolicies[];
+  policies?: IUserPolicy[];
 }
 
-export interface IUserPolicies {
+export interface IUserPolicy {
   _id?: string;
   policyId: string;
-  purchaseState: string;
+  purchaseState: EPurchaseState;
 }

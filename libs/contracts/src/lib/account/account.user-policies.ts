@@ -1,5 +1,5 @@
 import { IsString } from 'class-validator';
-import { IUserPolicies } from '@policy/shared/interfaces';
+import { IUserPolicy } from '@policy/shared/interfaces';
 
 export namespace AccountUserPolicies {
   export const topic = 'account.user-policies.query';
@@ -10,6 +10,6 @@ export namespace AccountUserPolicies {
   }
   
   export class Response { 
-    policies: IUserPolicies[];
+    policies: IUserPolicy[];
   }
 }
