@@ -5,6 +5,7 @@ export * from './lib/account/account.user-info';
 export * from './lib/account/account.user-policies';
 export * from './lib/account/account.buy-policy';
 export * from './lib/account/account.check-payment';
+export * from './lib/account/account.policy-updated';
 
 export * from './lib/policy/policy.get-info';
 

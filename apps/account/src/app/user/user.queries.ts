@@ -1,31 +1,21 @@
 import { Body, Controller } from '@nestjs/common';
 import { RMQRoute, RMQValidate } from 'nestjs-rmq';
 import { AccountUserInfo, AccountUserPolicies } from '@policy/contracts';
-import { UserRepository } from './repositories/user.repository';
+import { UserService } from './user.service';
 
 @Controller()
-export class UserCommands {
-  constructor(
-    private readonly userRepository: UserRepository,
-  ) {}
+export class UserQueries {
+  constructor(private readonly userService: UserService) {}
 
   @RMQRoute(AccountUserInfo.topic)
   @RMQValidate()
   async getUserInfo(@Body() { id }: AccountUserInfo.Request): Promise<AccountUserInfo.Response> {
-    const user = await this.userRepository.findUserById(id);
-
-    return {
-      user,
-    };
+    return this.userService.getUserInfo({ id });
   }
 
   @RMQRoute(AccountUserPolicies.topic)
   @RMQValidate()
   async getUserPolicies(@Body() { id }: AccountUserPolicies.Request): Promise<AccountUserPolicies.Response> {
-    const user = await this.userRepository.findUserById(id);
-
-    return {
-      policies: user.policies,
-    };
+    return this.userService.getUserPolicies({ id });
   }
 }

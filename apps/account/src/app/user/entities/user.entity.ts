@@ -1,5 +1,6 @@
 import { compare, genSalt, hash } from 'bcrypt';
-import { IUser, EUserRole, IUserPolicy, EPurchaseState } from '@policy/shared/interfaces';
+import { IUser, EUserRole, IUserPolicy, EPurchaseState, IDomainEvent } from '@policy/shared/interfaces';
+import { AccountPolicyUpdated } from '@policy/contracts';
 
 export class UserEntity implements IUser {
   _id?: string;
@@ -8,6 +9,7 @@ export class UserEntity implements IUser {
   passwordHash: string;
   role: EUserRole;
   policies?: IUserPolicy[];
+  events: IDomainEvent[] = [];
 
   constructor(user: IUser) {
     this._id = user._id;
@@ -41,6 +43,15 @@ export class UserEntity implements IUser {
       }
 
       return p;
+    });
+
+    this.events.push({
+      topic: AccountPolicyUpdated.topic,
+      data: {
+        userId: this._id,
+        policyId,
+        state,
+      },
     });
 
     return this;
