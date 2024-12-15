@@ -7,24 +7,28 @@ import { UserEntity } from '../entities/user.entity';
 @Injectable()
 export class UserRepository {
   constructor(
-    @InjectModel(User.name) private readonly userModule: Model<User>
+    @InjectModel(User.name) private readonly userModel: Model<User>
   ) {}
 
   async createUser(user: UserEntity) {
-    const newUser = new this.userModule(user);
+    const newUser = new this.userModel(user);
 
     return newUser.save();
   }
 
   async updateUser({ _id, ...rest }: UserEntity): Promise<UpdateWriteOpResult> {
-    return this.userModule.updateOne({ _id }, { $set: { ...rest } }).exec();
+    return this.userModel.updateOne({ _id }, { $set: { ...rest } }).exec();
   }
 
   async findUserByEmail(email: string) {
-    return this.userModule.findOne({ email }).exec();
+    return this.userModel.findOne({ email }).exec();
   }
 
   async findUserById(id: string) {
-    return this.userModule.findById(id).exec();
+    return this.userModel.findById(id).exec();
   }
+
+	async deleteUser(email: string) {
+		this.userModel.deleteOne({ email }).exec();
+	}
 }

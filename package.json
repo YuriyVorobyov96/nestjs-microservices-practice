@@ -3,12 +3,15 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "infra:account:up": "docker compose -f ./apps/account/docker-compose.yml up -d",
+    "infra:account:down": "docker compose -f ./apps/account/docker-compose.yml down --remove-orphans",
     "start": "nx run-many --target=serve -parallel=10",
     "start:account": "nx serve account",
     "start:api": "nx serve api",
     "start:dev": "env-cmd -f env/.api.dev.env env-cmd -f env/.account.dev.env nx run-many --target=serve --all -parallel=10",
     "start:account:dev": "env-cmd -f env/.account.dev.env nx serve account",
-    "start:api:dev": "env-cmd -f env/.api.dev.env nx serve api"
+    "start:api:dev": "env-cmd -f env/.api.dev.env nx serve api",
+    "test:account": "npm run infra:account:up && nx test account && npm run infra:account:down"
   },
   "private": true,
   "dependencies": {
