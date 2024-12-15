@@ -17,7 +17,7 @@ export class User extends Document implements IUser {
   @Prop({ required: true, enum: EUserRole, type: String, default: EUserRole.Client })
   role: EUserRole;
 
-  @Prop({ type: [UserPoliciesSchema] })
+  @Prop({ type: [UserPoliciesSchema], _id: false })
   policies: Types.Array<UserPolicies>;
 }
 

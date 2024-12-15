@@ -20,7 +20,6 @@ export interface IUser {
 }
 
 export interface IUserPolicy {
-  _id?: string;
   policyId: string;
   purchaseState: EPurchaseState;
 }

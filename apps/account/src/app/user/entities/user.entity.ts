@@ -36,7 +36,7 @@ export class UserEntity implements IUser {
     }
 
     this.policies = this.policies.map(p => {
-      if (p._id !== policyId) {
+      if (p.policyId !== policyId) {
         p.purchaseState = state;
 
         return p;
@@ -82,10 +82,10 @@ export class UserEntity implements IUser {
   }
 
   private deletePolicy(policyId: string): void {
-    this.policies = this.policies.filter(p => p._id !== policyId);
+    this.policies = this.policies.filter(p => p.policyId !== policyId);
   }
 
   private getPolicy(policyId: string): IUserPolicy {
-    return this.policies.find(p => p._id === policyId);
+    return this.policies.find(p => p.policyId === policyId);
   }
 }
