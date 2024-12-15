@@ -12,6 +12,6 @@ export namespace AccountLogin {
   }
   
   export class Response {
-    access_token: string;
+    accessToken: string;
   }
 }

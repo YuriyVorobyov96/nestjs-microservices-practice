@@ -36,7 +36,7 @@ export class UserEntity implements IUser {
     }
 
     this.policies = this.policies.map(p => {
-      if (p.policyId !== policyId) {
+      if (p.policyId === policyId) {
         p.purchaseState = state;
 
         return p;
@@ -55,6 +55,10 @@ export class UserEntity implements IUser {
     });
 
     return this;
+  }
+
+  public getPolicyStatus(policyId: string): EPurchaseState {
+    return this.policies.find(p => p.policyId === policyId)?.purchaseState ?? EPurchaseState.Started;
   }
 
   public async setPassword(password: string): Promise<UserEntity> {

@@ -48,7 +48,7 @@ describe('AuthController', () => {
       authLoginFixture,
     );
 
-    expect(res.access_token).toBeDefined();
+    expect(res.accessToken).toBeDefined();
   });
 
   afterAll(async () => {
